@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "655273391369",
+    "project_id": "netanalyzer-dccc0",
+    "storage_bucket": "netanalyzer-dccc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655273391369:android:75d7fc86e6535bf9568fd8",
+        "android_client_info": {
+          "package_name": "com.example.net_analyzer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655273391369-9lqailbpei6idi007u074bic94q4jmku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.net_analyzer",
+            "certificate_hash": "99faaee1d577b0d96c0dbd5d90b993fbe11649ee"
+          }
+        },
+        {
+          "client_id": "655273391369-aq06a3vjgi19d2u18ftogrj614g15n7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjrtJJasSeirD5EhJlM-23CSx95f6AQus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655273391369-aq06a3vjgi19d2u18ftogrj614g15n7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
