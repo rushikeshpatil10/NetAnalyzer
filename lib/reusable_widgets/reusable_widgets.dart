@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../home_screen.dart';
+import 'hex_color.dart';
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -10,27 +14,32 @@ Image logoWidget(String imageName) {
   );
 }
 
-TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
+// TextField reusableTextField(String text, IconData icon, bool isPasswordType,
+//     TextEditingController controller)
+
+TextField reusableTextField(
+    bool isPasswordType, TextEditingController controller) {
   return TextField(
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.white,
-    style: TextStyle(color: Colors.white.withOpacity(0.9)),
+    cursorColor: Colors.black,
+    style: TextStyle(color: Colors.black.withOpacity(0.9)),
     decoration: InputDecoration(
-        prefixIcon: Icon(
-          icon,
-          color: Colors.white70,
-        ),
-        labelText: text,
-        labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+
+        // prefixIcon: Icon(
+        //   icon,
+        //   color: Colors.green,
+        // ),
+        // labelText: text,
+        labelStyle: TextStyle(color: Colors.green.withOpacity(0.9)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        fillColor: Colors.white.withOpacity(0.3),
+        fillColor: Colors.grey.withOpacity(0.2),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(5.0),
             borderSide: const BorderSide(width: 0, style: BorderStyle.none))),
     keyboardType: isPasswordType
         ? TextInputType.visiblePassword
@@ -49,20 +58,22 @@ Container signInSignUpButton(
       onPressed: () {
         onTap();
       },
-      child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
-        style: const TextStyle(
-            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
-      ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) {
-            return Colors.black26;
-          }
-          return Colors.white;
-        }),
+        backgroundColor: MaterialStateProperty.all<Color>(HexColor("#5DB075")),
+        // backgroundColor: MaterialStateProperty.resolveWith((states) {
+        //   if (states.contains(MaterialState.pressed)) {
+        //     return Colors.black26;
+        //   }
+        //   return Colors.white;
+        // }),
+
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+      ),
+      child: Text(
+        isLogin ? 'Log in' : 'Sign up',
+        style: const TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
       ),
     ),
   );

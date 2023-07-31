@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_telephony_info/flutter_telephony_info.dart';
 import 'package:net_analyzer/login_screen.dart';
+import 'package:net_analyzer/reusable_widgets/hex_color.dart';
+import 'package:net_analyzer/reusable_widgets/side_drawer.dart';
 import 'package:net_analyzer/screens/about_screen.dart';
-import 'package:net_analyzer/screens/lan_screen.dart';
-import 'package:net_analyzer/screens/tools_screen.dart';
-import 'package:net_analyzer/screens/wifi_screen.dart';
+
 import 'package:net_analyzer/utils/colors_utils.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:wifi_connection/WifiConnection.dart';
@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String _idName = "Unkown";
   String _brandName = 'Unkown';
   // String _cellDetails = 'Unknown';
+  String? _userName;
 
   @override
   void initState() {
@@ -106,28 +107,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: SideDrawer(),
+        drawer: const SideDrawer(),
         appBar: AppBar(
-            title: Text("Information"),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  AppSettings.openWirelessSettings();
-                },
-              )
-            ],
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  hexStringToColor("CB2B93"),
-                  hexStringToColor("9546C4"),
-                  hexStringToColor("5E61F4")
-                ]),
-              ),
-            )),
+          backgroundColor: HexColor("#5DB075"),
+          title: Text("Information"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                AppSettings.openWirelessSettings();
+              },
+            )
+          ],
+          // backgroundColor: Colors.transparent,
+          // elevation: 0,
+          // flexibleSpace: Container(
+          //   decoration: BoxDecoration(
+          //     gradient: LinearGradient(colors: [
+          //       hexStringToColor("CB2B93"),
+          //       hexStringToColor("9546C4"),
+          //       hexStringToColor("5E61F4")
+          //     ]),
+          //   ),
+          // )
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(0.0),
@@ -137,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 50.0,
                   width: 200,
-                  color: Colors.green[200],
+                  color: const Color.fromRGBO(93, 176, 117, 0.5),
                   child: const Row(
                     children: [
                       Padding(
@@ -177,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 50.0,
                   width: 200,
-                  color: Colors.green[200],
+                  color: const Color.fromRGBO(93, 176, 117, 0.5),
                   child: Row(
                     children: [
                       const Padding(
@@ -241,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 50.0,
                   width: 200,
-                  color: Colors.green[200],
+                  color: const Color.fromRGBO(93, 176, 117, 0.5),
                   child: Row(
                     children: [
                       const Padding(
@@ -317,7 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 50.0,
                   width: 200,
-                  color: Colors.green[200],
+                  color: const Color.fromRGBO(93, 176, 117, 0.5),
                   child: Row(
                     children: [
                       const Padding(
@@ -368,91 +371,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       initPlatformState();
                       _fetchNetworkInfo();
                     },
-                    child: Text('Refresh'))
+                    child: Text(
+                      'Refresh',
+                      style: TextStyle(color: HexColor("#5DB075")),
+                    ))
               ],
             ),
           ),
         ));
-  }
-}
-
-class SideDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: <Widget>[
-          DrawerHeader(
-            child: const Center(
-              child: Text(
-                'Network Analyzer',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 25),
-              ),
-            ),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              hexStringToColor("CB2B93"),
-              hexStringToColor("9546C4"),
-              hexStringToColor("5E61F4")
-            ])),
-          ),
-          ListTile(
-            leading: Icon(Icons.calendar_month_rounded),
-            title: Text('Information'),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.wifi),
-            title: Text('Wi-Fi Signal'),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const WifiScreen()))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.lan_sharp),
-            title: Text('LAN Scan'),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LanScreen()))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.badge),
-            title: Text('Tools'),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ToolsScreen()))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline_rounded),
-            title: Text('About'),
-            onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AboutScreen()))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () => {
-              FirebaseAuth.instance.signOut().then((value) {
-                print("Signed Out");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
-              })
-            },
-          ),
-        ],
-      ),
-    );
   }
 }
 
@@ -468,3 +394,18 @@ class wifiSetting {
     }
   }
 }
+
+// class HexColor extends Color {
+  // This class extends Color to provide a constructor that takes a hex string
+  // and converts it to the corresponding Color object.
+
+//   HexColor(String hexColor) : super(_getColorFromHex(hexColor));
+
+//   static int _getColorFromHex(String hexColor) {
+//     hexColor = hexColor.toUpperCase().replaceAll("#", "");
+//     if (hexColor.length == 6) {
+//       hexColor = "FF" + hexColor;
+//     }
+//     return int.parse(hexColor, radix: 16);
+//   }
+// }

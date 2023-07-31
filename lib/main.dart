@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:net_analyzer/home_screen.dart';
 import 'package:net_analyzer/login_screen.dart';
+import 'package:net_analyzer/screens/splash_scrren.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +43,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Net Analyzer',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: isLogin ? const HomeScreen() : const LoginScreen(),
+      // home: isLogin ? const HomeScreen() : const LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
