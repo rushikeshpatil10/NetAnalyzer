@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:net_analyzer/main.dart';
 import 'package:net_analyzer/reusable_widgets/hex_color.dart';
 import 'package:net_analyzer/reusable_widgets/reusable_widgets.dart';
 import 'package:net_analyzer/utils/colors_utils.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -52,6 +53,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _emailTextController.text.trim(),
       );
 
+      await sharedPreferences.setString(
+          'name', _userNameTextController.text.trim());
       // Navigate to the homepage after successful sign-up
       // ignore: use_build_context_synchronously
       Navigator.push(

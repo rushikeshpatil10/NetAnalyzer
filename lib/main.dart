@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:net_analyzer/home_screen.dart';
 import 'package:net_analyzer/login_screen.dart';
 import 'package:net_analyzer/screens/splash_scrren.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+late SharedPreferences sharedPreferences;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }

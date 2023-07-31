@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:net_analyzer/main.dart';
 import 'package:net_analyzer/reusable_widgets/reusable_widgets.dart';
 import 'package:net_analyzer/screens/forget_password.dart';
 import 'package:net_analyzer/signup_screen.dart';
@@ -13,6 +15,14 @@ class LoginScreen extends StatefulWidget {
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
+}
+
+Future<String> fetchName() async {
+  var snapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .where('Email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+      .get();
+  return snapshot.docs.first.get('Name');
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -98,6 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     .signInWithEmailAndPassword(
                         email: _emailTextController.text,
                         password: _passwordTextController.text)
+                    .then((value) => fetchName())
+                    .then((value) => sharedPreferences.setString("name", value))
                     .then((value) {
                   Navigator.push(
                       context,
