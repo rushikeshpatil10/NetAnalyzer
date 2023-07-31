@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:net_analyzer/main.dart';
 
 import '../home_screen.dart';
 import '../login_screen.dart';
@@ -16,13 +17,13 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
-  String? _userName;
+  String _userName = sharedPreferences.getString('name') ?? 'Error';
   // Variable to store the user's name
   // final currentuser = FirebaseAuth.instance;
   final user = FirebaseAuth.instance.currentUser!;
   @override
   void initState() {
-    _fetchUserData();
+    // _fetchUserData();
     // getProfile();
     super.initState();
     // Fetch the user's data when the widget is created
@@ -58,9 +59,9 @@ class _SideDrawerState extends State<SideDrawer> {
             DrawerHeader(
               decoration: BoxDecoration(color: HexColor("#5DB075")),
 
-              child: const Column(
+              child: Column(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     backgroundImage: AssetImage('assets/icon.png'),
                     radius: 25.0,
                   ),
@@ -68,11 +69,11 @@ class _SideDrawerState extends State<SideDrawer> {
                   //   'assets/icon.png', // Replace with your logo image path
                   //   width: 30.0,
                   //   height: 30.0,
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   // ),
-                  Text(
+                  const Text(
                     'Network Analyzer',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -81,16 +82,16 @@ class _SideDrawerState extends State<SideDrawer> {
                       fontFamily: 'CustomFont',
                     ),
                   ),
-                  // Text(
-                  //   _userName.toString().trim(),
-                  //   // _userName.toString(), // Display the user's name here
-                  //   style: const TextStyle(
-                  //     color: Colors.white,
-                  //     fontFamily: 'PoppinsRegular',
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 16,
-                  //   ),
-                  // ),
+                  Text(
+                    _userName,
+                    // _userName.toString(), // Display the user's name here
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'PoppinsRegular',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
 
@@ -127,8 +128,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     fontSize: 16),
               ),
               onTap: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()))
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => const HomeScreen()))
               },
             ),
             ListTile(
@@ -197,7 +198,10 @@ class _SideDrawerState extends State<SideDrawer> {
                             ),
                             onPressed: () {
                               // Perform the logout operation
-                              FirebaseAuth.instance.signOut().then((value) {
+                              FirebaseAuth.instance
+                                  .signOut()
+                                  .then((value) => sharedPreferences.clear())
+                                  .then((value) {
                                 print("Signed Out");
                                 Navigator.push(
                                   context,

@@ -49,6 +49,7 @@ dependencies:
   device_info_plus: ^9.0.2
   package_info_plus: ^4.0.2
   hidden_drawer_menu: ^3.0.1
+  shared_preferences: ^2.2.0
   
  
   
