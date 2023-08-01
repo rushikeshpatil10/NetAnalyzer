@@ -50,176 +50,181 @@ class _SideDrawerState extends State<SideDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 230.0,
-      child: Drawer(
-        backgroundColor: HexColor("#5DB075"),
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: HexColor("#5DB075")),
-
-              child: Column(
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/icon.png'),
-                    radius: 25.0,
-                  ),
-                  // Image.asset(
-                  //   'assets/icon.png', // Replace with your logo image path
-                  //   width: 30.0,
-                  //   height: 30.0,
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  // ),
-                  const Text(
-                    'Network Analyzer',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'CustomFont',
-                    ),
-                  ),
-                  Text(
-                    _userName,
-                    // _userName.toString(), // Display the user's name here
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'PoppinsRegular',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
+    return ListView(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 75,
+                width: 75,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    image:
+                        DecorationImage(image: AssetImage('assets/icon.png'))),
               ),
-
-              // decoration: BoxDecoration(
-              //     gradient: LinearGradient(colors: [
-              //   hexStringToColor("CB2B93"),
-              //   hexStringToColor("9546C4"),
-              //   hexStringToColor("5E61F4")
-              // ])),
-            ),
-            // UserAccountsDrawerHeader(
-            //   accountName: Text(_userName ?? 'Guest'),
-            //   accountEmail: Text(''), // You can display the user's email here
-            //   currentAccountPicture: CircleAvatar(
-            //     child: Icon(Icons.person),
-            //   ),
-            // ),
-            const Divider(
-              // Add a white line (divider)
-              color: Colors.white, // Set the color to white
-              thickness: 2, // Set the thickness of the line
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.calendar_month_rounded,
-                color: Colors.white,
+              // Image.asset(
+              //   'assets/icon.png', // Replace with your logo image path
+              //   width: 30.0,
+              //   height: 30.0,
+              const SizedBox(
+                height: 10.0,
               ),
-              title: const Text(
-                'Information',
+              // ),
+              const Text(
+                'Network Analyzer',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'PoppinsRegular',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-              ),
-              onTap: () => {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => const HomeScreen()))
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.white,
-              ),
-              title: const Text(
-                'About',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'PoppinsRegular',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-              ),
-              onTap: () => {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AboutScreen()))
-              },
-            ),
-            ListTile(
-                leading: const Icon(
-                  Icons.exit_to_app,
                   color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'CustomFont',
                 ),
-                title: const Text(
-                  'Logout',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'PoppinsRegular',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                'Hello,',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PoppinsRegular',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                onTap: () {
-                  // Show the logout confirmation dialog
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Logout"),
-                        content:
-                            const Text("Are you sure you want to log out?"),
-                        actions: <Widget>[
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 16)),
-                            child: Text("No",
-                                style: TextStyle(
-                                    color: HexColor("#5DB075"),
-                                    fontWeight: FontWeight.bold)),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 16)),
-                            child: Text(
-                              "Yes",
-                              style: TextStyle(
-                                  color: HexColor("#5DB075"),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            onPressed: () {
-                              // Perform the logout operation
-                              FirebaseAuth.instance
-                                  .signOut()
-                                  .then((value) => sharedPreferences.clear())
-                                  .then((value) {
-                                print("Signed Out");
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }),
-          ],
+              ),
+              Text(
+                _userName,
+                // _userName.toString(), // Display the user's name here
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PoppinsRegular',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+        // UserAccountsDrawerHeader(
+        //   accountName: Text(_userName ?? 'Guest'),
+        //   accountEmail: Text(''), // You can display the user's email here
+        //   currentAccountPicture: CircleAvatar(
+        //     child: Icon(Icons.person),
+        //   ),
+        // ),
+        SizedBox(
+          height: 50,
+        ),
+        const Divider(
+          // Add a white line (divider)
+          color: Colors.white, // Set the color to white
+          thickness: 1, // Set the thickness of the line
+          indent: 50,
+          endIndent: 50,
+        ),
+        ListTile(
+          leading: const Icon(
+            Icons.calendar_month_rounded,
+            color: Colors.white,
+          ),
+          title: const Text(
+            'Information',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'PoppinsRegular',
+                fontWeight: FontWeight.bold,
+                fontSize: 16),
+          ),
+          onTap: () => {
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => const HomeScreen()))
+          },
+        ),
+        ListTile(
+          leading: const Icon(
+            Icons.info_outline_rounded,
+            color: Colors.white,
+          ),
+          title: const Text(
+            'About',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'PoppinsRegular',
+                fontWeight: FontWeight.bold,
+                fontSize: 16),
+          ),
+          onTap: () => {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AboutScreen()))
+          },
+        ),
+        ListTile(
+            leading: const Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Logout',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PoppinsRegular',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            onTap: () {
+              // Show the logout confirmation dialog
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("Logout"),
+                    content: const Text("Are you sure you want to log out?"),
+                    actions: <Widget>[
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 16)),
+                        child: Text("No",
+                            style: TextStyle(
+                                color: HexColor("#5DB075"),
+                                fontWeight: FontWeight.bold)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 16)),
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(
+                              color: HexColor("#5DB075"),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                        onPressed: () {
+                          // Perform the logout operation
+                          FirebaseAuth.instance
+                              .signOut()
+                              .then((value) => sharedPreferences.clear())
+                              .then((value) {
+                            print("Signed Out");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }),
+      ],
     );
   }
 }
