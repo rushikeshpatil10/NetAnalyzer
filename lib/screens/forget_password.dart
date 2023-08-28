@@ -13,6 +13,7 @@ class forgetPassword extends StatefulWidget {
 
 class _forgetPasswordState extends State<forgetPassword> {
   TextEditingController _emailTextController = TextEditingController();
+  final GlobalKey<FormState> _key2 = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -80,30 +81,30 @@ class _forgetPasswordState extends State<forgetPassword> {
               Text(
                 "Network Analyzer",
                 style: TextStyle(
-                    fontFamily: 'CustomFont',
+                    fontFamily: 'PoppinsRegular',
                     color: HexColor("#5DB075"),
                     fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(
-                height: 100,
+                height: 80,
               ),
               RichText(
                   textAlign: TextAlign.center,
-                  text: TextSpan(
+                  text: const TextSpan(
                     // style: DefaultTextStyle.of.(context).style,
                     children: <TextSpan>[
-                      const TextSpan(
+                      TextSpan(
                           text: 'Enter your ',
                           style: TextStyle(color: Colors.black, fontSize: 16)),
                       TextSpan(
                         text: 'Email ID ',
                         style: TextStyle(
-                            color: HexColor("#5DB075"),
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 16), // Set the desired color here
                       ),
-                      const TextSpan(
+                      TextSpan(
                           text: 'and we will send you a Password reset link ',
                           style: TextStyle(color: Colors.black, fontSize: 16)),
                     ],
@@ -111,7 +112,48 @@ class _forgetPasswordState extends State<forgetPassword> {
               const SizedBox(
                 height: 20,
               ),
-              reusableTextField(false, _emailTextController),
+              // reusableTextField(false, _emailTextController, false),
+              Form(
+                key: _key2,
+                autovalidateMode: AutovalidateMode.always,
+                child: TextFormField(
+                    controller: _emailTextController,
+                    obscureText: false,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    cursorColor: Colors.black,
+                    style: TextStyle(color: Colors.black.withOpacity(0.9)),
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      labelStyle:
+                          TextStyle(color: Colors.green.withOpacity(0.9)),
+                      filled: true,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      fillColor: Colors.grey.withOpacity(0.2),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        // borderSide: const BorderSide(
+                        //     width: 0, style: BorderStyle.none),
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      bool emailValid = RegExp(
+                              r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$")
+                          .hasMatch(value!);
+                      if (value.isEmpty) {
+                        return 'Email is required';
+                      } else if (!emailValid) {
+                        return "Enter Valid Email";
+                      }
+                    }
+                    // validator: MultiValidator([
+                    //   RequiredValidator(errorText: "Email is required"),
+                    //   EmailValidator(errorText: "Email is required ")
+                    // ]),
+                    ),
+              ),
               const SizedBox(
                 height: 15,
               ),

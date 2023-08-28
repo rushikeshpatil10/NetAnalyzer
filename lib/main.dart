@@ -45,6 +45,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: false,
       title: 'Net Analyzer',
       theme: ThemeData(primarySwatch: Colors.blue),
       // home: isLogin ? const HomeScreen() : const LoginScreen(),

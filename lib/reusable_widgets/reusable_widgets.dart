@@ -17,9 +17,9 @@ Image logoWidget(String imageName) {
 // TextField reusableTextField(String text, IconData icon, bool isPasswordType,
 //     TextEditingController controller)
 
-TextField reusableTextField(
-    bool isPasswordType, TextEditingController controller) {
-  return TextField(
+TextFormField reusableTextField(
+    bool isPasswordType, TextEditingController controller, bool isEmail) {
+  return TextFormField(
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
@@ -27,24 +27,40 @@ TextField reusableTextField(
     cursorColor: Colors.black,
     style: TextStyle(color: Colors.black.withOpacity(0.9)),
     decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-
-        // prefixIcon: Icon(
-        //   icon,
-        //   color: Colors.green,
-        // ),
-        // labelText: text,
-        labelStyle: TextStyle(color: Colors.green.withOpacity(0.9)),
-        filled: true,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        fillColor: Colors.grey.withOpacity(0.2),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(width: 0, style: BorderStyle.none))),
-    keyboardType: isPasswordType
-        ? TextInputType.visiblePassword
-        : TextInputType.emailAddress,
+      contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      labelStyle: TextStyle(color: Colors.green.withOpacity(0.9)),
+      filled: true,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      fillColor: Colors.grey.withOpacity(0.2),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5.0),
+        borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+      ),
+    ),
+    keyboardType: isEmail
+        ? TextInputType.emailAddress
+        : (isPasswordType ? TextInputType.visiblePassword : TextInputType.text),
+    validator: (value) {
+      if (value!.isEmpty) {
+        return isEmail ? 'Email is required' : 'Password is required';
+      }
+      bool emailValid = RegExp(
+        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+      ).hasMatch(value);
+      if (!emailValid) {
+        return "Enter valid Email";
+      }
+      return null;
+    },
   );
+}
+
+bool isValidEmail(String email) {
+  // Use a regular expression pattern to validate the email format
+  final RegExp emailRegex = RegExp(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+  );
+  return emailRegex.hasMatch(email);
 }
 
 Container signInSignUpButton(
@@ -60,13 +76,6 @@ Container signInSignUpButton(
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(HexColor("#5DB075")),
-        // backgroundColor: MaterialStateProperty.resolveWith((states) {
-        //   if (states.contains(MaterialState.pressed)) {
-        //     return Colors.black26;
-        //   }
-        //   return Colors.white;
-        // }),
-
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       ),

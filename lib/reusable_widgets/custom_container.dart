@@ -20,6 +20,7 @@ class CustomInfoContainer extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
             child: Text(
               text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],

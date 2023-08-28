@@ -1,4 +1,4 @@
-package com.example.net_analyzer
+package com.analyzer.net_analyzer
 
 import io.flutter.embedding.android.FlutterActivity
 

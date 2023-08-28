@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.net_analyzer">
+    package="com.analyzer.net_analyzer">
+<!--    <uses-permission android:name="com.google.android.gms.permission.AD_ID permission" />-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     <application
-        android:label="net_analyzer"
+        android:label="Network Analyzer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

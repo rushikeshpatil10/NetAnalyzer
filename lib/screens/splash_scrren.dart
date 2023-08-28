@@ -116,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen> {
               const Text(
                 'Network Analyzer',
                 style: TextStyle(
-                  fontFamily: 'CustomFont',
+                  fontFamily: 'PoppinsRegular',
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
